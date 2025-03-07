@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13a24ab4b31d9264ca7d34d3f389b67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopDistance: 3
+  stopDistance: 1.5
   onInteract:
     m_PersistentCalls:
       m_Calls: []

@@ -1,4 +1,6 @@
 using System;
+using System.Runtime.InteropServices;
+using FischlWorks_FogWar;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,12 +14,16 @@ public class UpgradeCenter : Interactable
     [SerializeField] Player player;
     [SerializeField] UpgradeButton[] upgradeButtons;
 
+    [SerializeField] SkillSet playerSkillSet;
+
     public float StoppingDistance => 4;
 
-    private void Start()
+    private void Awake()
     {
         UpdateButtonsEnabled();
         Return();
+
+        playerSkillSet.Init(player);
     }
 
     public override void Interact(Player _player)
@@ -25,8 +31,9 @@ public class UpgradeCenter : Interactable
         Time.timeScale = 0;
         upgradeCanvas.SetActive(true);
         UpdateButtonsEnabled();
-
-
+        UpdateCoinPrices();
+        playerSkillSet.IterateBlocks((sb) => playerSkillSet.CheckParentButton(_player, sb));
+        playerSkillSet.IterateBlocks((sb) => playerSkillSet.CheckChildrenButtons(_player, sb));
     }
 
     public override void StopInteract(Player _player)
@@ -53,6 +60,24 @@ public class UpgradeCenter : Interactable
 
         //stats.IncreaseMaximumWater(5);
         UpdateButtonsEnabled();
+    }
+    public void IncreaseLightDiameter(Button _bt)
+    {
+        UpdateCoinCount(_bt);
+
+        var fogs = FindObjectsByType<csFogWar>(FindObjectsSortMode.None);
+        foreach(var f in fogs)
+        {
+            foreach(var r in f._FogRevealers)
+            {
+                if(r._RevealerTransform == player.transform)
+                {
+                    r.SetSightRange(r._SightRange + 1);
+                }
+            }
+        }
+        UpdateButtonsEnabled();
+
     }
     public void IncreaseDamage(Button _bt)
     {
@@ -82,12 +107,29 @@ public class UpgradeCenter : Interactable
             }
         }
     }
+
+    void UpdateCoinPrices()
+    {
+        foreach(var b in upgradeButtons)
+        {
+            b.CostText.text = b.Cost.ToString();
+        }
+    }
 }
 
 [Serializable]
-public struct UpgradeButton
+public class UpgradeButton
 {
     public Button Button;
     public int Cost;
     public TextMeshProUGUI CostText;
+    [HideInInspector] public bool AlreadyPressed = false;
+
+    public void Init()
+    {
+        Button.onClick.AddListener(() =>
+        {
+            AlreadyPressed = true;
+        });
+    }
 }

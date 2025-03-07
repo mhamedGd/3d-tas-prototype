@@ -2,18 +2,37 @@ using System;
 using AndoomiUtils;
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    float _currentHealth;
+    [SerializeField] float maxHealth;
+    public float HealthPercentage => _currentHealth / maxHealth;
+    public float Health => _currentHealth;
+    public UnityEvent<Player> onTakeDamage = new();
+    public void TakeDamage(float damageAmount)
+    {
+        _currentHealth -= damageAmount;
+        onTakeDamage.Invoke(this);
+    }
+
+    #region Hud
+    [Header("Hud")]
+    [SerializeField] Image healthBar;
+    #endregion
+
     int coins;
     public int Coins => coins;
     public void IncreaseCoinCount(int _increment) => coins += _increment;
 
-    Plane _raycastPlane;
+    [Header("Settings")]
     [SerializeField] float speed;
     public void SetSpeed(float _s) => speed = _s;
     public float Speed => speed;
     [SerializeField] LayerMask interactionMask;
+    Plane _raycastPlane;
     FollowerEntity _followerEntity;
     [SerializeField] Transform marker;
 
@@ -52,6 +71,12 @@ public class Player : MonoBehaviour
             //UpdatePath();
         };
         _pathTimer.Start();
+
+        onTakeDamage.AddListener((p) =>
+        {
+            healthBar.fillAmount = p.HealthPercentage;
+        });
+        healthBar.fillAmount = HealthPercentage;
     }
 
     void UpdatePath()
@@ -75,7 +100,7 @@ public class Player : MonoBehaviour
         }
         UpdatePath();
 
-        if (!_isInteracting && _currentInteractMethod != null && _followerEntity.reachedEndOfPath)
+        if (!_isInteracting && _currentInteractable != null && _currentInteractMethod != null && _followerEntity.reachedEndOfPath)
         {
             _currentInteractMethod.Invoke(this);
             _currentStopInteractMethod = _currentInteractable.StopInteract;

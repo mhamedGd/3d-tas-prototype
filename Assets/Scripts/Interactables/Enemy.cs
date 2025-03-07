@@ -77,7 +77,7 @@ public class Enemy : Interactable
     {
         transform.localScale = _originalScale * motionCurve.Evaluate(_curveScale);
 
-        if (Vector3.Distance(transform.position, _targetPosition) > 0.2f)
+        if (Vector3.Distance(transform.position, _targetPosition) > 0.2f && _currentHealth > 0)
         {
             transform.position = Vector3.MoveTowards(transform.position, _targetPosition, speed * Time.deltaTime);
         }

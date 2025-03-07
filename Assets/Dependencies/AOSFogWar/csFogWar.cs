@@ -165,6 +165,7 @@ namespace FischlWorks_FogWar
             [SerializeField]
             private int sightRange = 0;
             public int _SightRange => sightRange;
+            public void SetSightRange(int newRange) => sightRange = newRange;
 
             [SerializeField]
             private bool updateOnlyOnMove = true;
