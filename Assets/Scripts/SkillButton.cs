@@ -19,6 +19,6 @@ public class SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        _description.text = "";
     }
 }

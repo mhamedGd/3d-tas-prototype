@@ -18,12 +18,20 @@ public class UpgradeCenter : Interactable
 
     public float StoppingDistance => 4;
 
+    [SerializeField] RectTransform descriptionRect;
+    [SerializeField] float descriptionLeftMargin;
+
     private void Awake()
     {
         UpdateButtonsEnabled();
         Return();
 
         playerSkillSet.Init(player);
+    }
+
+    private void Update()
+    {
+        descriptionRect.anchoredPosition = Input.mousePosition + Vector3.right * (descriptionRect.rect.xMax + descriptionLeftMargin);
     }
 
     public override void Interact(Player _player)
@@ -88,10 +96,22 @@ public class UpgradeCenter : Interactable
 
     public void IncreaseSpeed(Button _bt)
     {
-        UpdateCoinCount(_bt);
+        //UpdateCoinCount(_bt);
 
         player.SetSpeed(player.Speed + 2);
-        UpdateButtonsEnabled();
+        UpdateCoins(_bt);
+        //UpdateButtonsEnabled();
+    }
+
+    void UpdateCoins(Button _bt)
+    {
+        playerSkillSet.IterateBlocks((sb) =>
+        {
+            if(sb.parentButton.Button == _bt)
+            {
+                player.IncreaseCoinCount(-sb.parentButton.Cost);
+            }
+        });
     }
 
     void UpdateCoinCount(Button _b)
