@@ -543,6 +543,11 @@ namespace Pathfinding {
 		}
 
 		/// <summary>Returns if the points are colinear (lie on a straight line)</summary>
+		public static bool IsColinear (int2 a, int2 b, int2 c) {
+			return (long)(b.x - a.x) * (long)(c.y - a.y) - (long)(c.x - a.x) * (long)(b.y - a.y) == 0;
+		}
+
+		/// <summary>Returns if the points are colinear (lie on a straight line)</summary>
 		public static bool IsColinearXZ (Int3 a, Int3 b, Int3 c) {
 			return (long)(b.x - a.x) * (long)(c.z - a.z) - (long)(c.x - a.x) * (long)(b.z - a.z) == 0;
 		}
@@ -1431,7 +1436,7 @@ namespace Pathfinding {
 			double3 thresholds, linear1, linear2, linear3, ys;
 
 			public BarycentricTriangleInterpolator(Int3 p1, Int3 p2, Int3 p3) {
-				double signedTriangleArea = ((double)(p2.z - p3.z)) * (p1.x - p3.x) + ((double)(p3.x - p2.x)) * (p1.z - p3.z);
+				double signedTriangleAreaTimes2 = ((double)(p2.z - p3.z)) * (p1.x - p3.x) + ((double)(p3.x - p2.x)) * (p1.z - p3.z);
 				var d12 = new double2(p2.x - p1.x, p2.z - p1.z);
 				var d23 = new double2(p3.x - p2.x, p3.z - p2.z);
 				var d31 = new double2(p1.x - p3.x, p1.z - p3.z);
@@ -1451,14 +1456,20 @@ namespace Pathfinding {
 				const double MaxEdgeSnappingDistance = 2;
 				// Thresholds for the barycentric coordinates. If they are smaller than this, then the point is very close to the edge of the triangle.
 				// This follows from https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Barycentric_coordinates_on_triangles
-				thresholds = math.sqrt(new double3(l12, l23, l31)) * (MaxEdgeSnappingDistance / math.abs(signedTriangleArea));
+				// For barycentric coordinates (b1,b2,b3) it holds that
+				// b1 = area(p2,p3,p) / area(p1,p2,p3)
+				// = (distanceToLine(p2,p3,p)*length(p2,p3)/2) / area(p1,p2,p3)       (since a triangle's area = base*height/2)
+				// = distanceToLine(p2,p3,p) * length(p2,p3) / (2*area(p1,p2,p3))
+				// If we want to check if distanceToLine is smaller than MaxEdgeSnappingDistance, we get the threshold below
+				// for all the barycentric coordinates.
+				thresholds = math.sqrt(new double3(l23, l31, l12)) * (MaxEdgeSnappingDistance / math.abs(signedTriangleAreaTimes2));
 				origin = new int2(p3.x, p3.z);
 
 				// Linear mapping from 2D space (relative to origin) to barycentric coordinates
 				barycentricMapping = new double2x2(
 					-d23.y, d23.x,
 					-d31.y, d31.x
-					) / signedTriangleArea;
+					) / signedTriangleAreaTimes2;
 
 				ys = new double3(p1.y, p2.y, p3.y);
 

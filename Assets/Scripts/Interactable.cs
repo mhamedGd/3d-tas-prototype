@@ -12,12 +12,10 @@ public class Interactable : MonoBehaviour
     public virtual void Interact(Player p)
     {
         onInteract.Invoke();
-        print("Start");
     }
 
     public virtual void StopInteract(Player p)
     {
         onStopInteract.Invoke();
-        print("Stop");
     }
 }

@@ -30,7 +30,7 @@ using Thread = System.Threading.Thread;
 [HelpURL("https://arongranberg.com/astar/documentation/stable/astarpath.html")]
 public class AstarPath : VersionedMonoBehaviour {
 	/// <summary>The version number for the A* Pathfinding Project</summary>
-	public static readonly System.Version Version = new System.Version(5, 3, 3);
+	public static readonly System.Version Version = new System.Version(5, 3, 4);
 
 	/// <summary>Information about where the package was downloaded</summary>
 	public enum AstarDistribution { WebsiteDownload, AssetStore, PackageManager };
@@ -827,10 +827,9 @@ public class AstarPath : VersionedMonoBehaviour {
 				inGameDebugPath = debug;
 			} else if (path.error) {
 				Debug.LogWarning(debug);
+			} else {
+				// Debug.Log(debug);
 			}
-			//else {
-			//	Debug.Log(debug);
-			//}
 		}
 	}
 

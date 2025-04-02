@@ -1,12 +1,17 @@
 using System;
+using System.Collections;
 using AndoomiUtils;
 using Pathfinding;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    bool _isFrozen;
+    public void Freeze(bool value) => _isFrozen = value;
+
     float _currentHealth;
     [SerializeField] float maxHealth;
     public float HealthPercentage => _currentHealth / maxHealth;
@@ -32,6 +37,7 @@ public class Player : MonoBehaviour
     public void SetSpeed(float _s) => speed = _s;
     public float Speed => speed;
     [SerializeField] LayerMask interactionMask;
+    public LayerMask InteractionMask => interactionMask;
     Plane _raycastPlane;
     FollowerEntity _followerEntity;
     [SerializeField] Transform marker;
@@ -94,7 +100,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0))
+        if(_isFrozen) return;
+        if(Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             MoveToMouse(speed);
         }
@@ -164,6 +171,15 @@ public class Player : MonoBehaviour
 
 
         }
+    }
+
+    IEnumerator FreezeDelayCoroutine(bool _value, float _delayAmount) {
+        yield return new WaitForSeconds(_delayAmount);
+
+        _isFrozen =_value;
+    }
+    public void FreezeDelay(bool _value, float _delayAmount) {
+        StartCoroutine(FreezeDelayCoroutine(_value, _delayAmount));
     }
 
     private void OnTriggerEnter(Collider other)

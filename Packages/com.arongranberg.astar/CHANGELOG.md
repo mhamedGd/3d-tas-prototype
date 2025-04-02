@@ -1,5 +1,22 @@
+## 5.3.4 (2025-03-18)
+- Navmesh cuts now work much better in slopes.
+		Previously, whenever the navmesh cut bounds touched a triangle bounds, the triangle would be cut by the full navmesh cut.
+		Now, the full 3d extruded cut shape is used to calculate the cut. Resulting is more predictable cuts, and fixes
+		a ton of edge cases where a navmesh cut could cause an agent to not be able to navigate across a seemingly navigable area.
+		The video below shows the old behavior on the left, and the new one on the right.
+		\video{changelog/navmeshcutfallingslowly_5_3_4_stack.webm}
+- Navmesh cut gizmos are now oriented relative to the closest graph, instead of the first graph.
+		This has no effect on the actual navmesh cut, but it makes it easier to see where the cut will be applied, in case there are multiple graphs in the scene.
+- Fixed updating a recast graph on a unity terrain could in rare cases create reactangular gaps along a border of tiles.
+- Reflection is now used to find graph types even in WebGL builds. This allows you to use custom graph types in WebGL builds too.
+		Make sure your custom graph types are annotated with the [Pathfinding.Util.Preserve] attribute, otherwise they may be stripped out by the Unity WebGL build process.
+- Fixed a bug causing navmesh cuts to add a tiny gap in the navmesh.
+
 ## 5.3.3 (2025-01-31)
+- Fixed sometimes not being able to delete graphs from AstarPath components on prefabs.
+- Fixed a tiny memory leak happening sometimes when editing a prefab with an AstarPath component.
 - Fixed scanning grid graphs in Unity 6000.0.36f1+ would throw an exception, due to changes to unity's job system.
+- Fixed setting Recast graph -> 'Filter Objects By' to Tags would incorrectly include everything in the scene.
 
 ## 5.3.2 (2025-01-27)
 - Fixed compatibility with com.unity.entities version 1.3.9 (latest version at the time of this update).

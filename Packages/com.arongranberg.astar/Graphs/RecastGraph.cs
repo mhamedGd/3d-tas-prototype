@@ -1469,6 +1469,7 @@ namespace Pathfinding {
 			}
 			EndBatchTileUpdate();
 
+			// TODO: Call after ReplaceTile too? Make sure it's not called after navmesh cut updates
 			if (OnRecalculatedTiles != null) OnRecalculatedTiles(updatedTiles);
 		}
 

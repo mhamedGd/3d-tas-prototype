@@ -1561,9 +1561,6 @@ namespace Pathfinding.Drawing {
 				return;
 			}
 
-			var planes = frustrumPlanes;
-			GeometryUtility.CalculateFrustumPlanes(cam, planes);
-
 			if (!cameraVersions.TryGetValue(cam, out Range cameraRenderingRange)) {
 				cameraRenderingRange = new Range { start = int.MinValue, end = int.MinValue };
 			}
@@ -1618,71 +1615,78 @@ namespace Pathfinding.Drawing {
 				processedData.CollectMeshes(cameraRenderingRange.start, meshes, cam, allowGizmos, allowCameraDefault);
 				processedData.PoolDynamicMeshes(this);
 				MarkerCollectMeshes.End();
-				MarkerSortMeshes.Begin();
-				// Note that a stable sort is required as some meshes may have the same sorting index
-				// but those meshes will have a consistent ordering between them in the list
-				meshes.Sort(meshSorter);
-				MarkerSortMeshes.End();
 
-				int colorID = Shader.PropertyToID("_Color");
-				int colorFadeID = Shader.PropertyToID("_FadeColor");
-				var solidBaseColor = new Color(1, 1, 1, settings.solidOpacity);
-				var solidFadeColor = new Color(1, 1, 1, settings.solidOpacityBehindObjects);
-				var lineBaseColor = new Color(1, 1, 1, settings.lineOpacity);
-				var lineFadeColor = new Color(1, 1, 1, settings.lineOpacityBehindObjects);
-				var textBaseColor = new Color(1, 1, 1, settings.textOpacity);
-				var textFadeColor = new Color(1, 1, 1, settings.textOpacityBehindObjects);
+				// Early out if nothing is being rendered
+				if (meshes.Count > 0) {
+					MarkerSortMeshes.Begin();
+					// Note that a stable sort is required as some meshes may have the same sorting index
+					// but those meshes will have a consistent ordering between them in the list
+					meshes.Sort(meshSorter);
+					MarkerSortMeshes.End();
 
-				// The meshes list is already sorted as first surfaces, then lines, then text
-				for (int i = 0; i < meshes.Count;) {
-					int meshEndIndex = i+1;
-					var tp = meshes[i].type & MeshType.BaseType;
-					while (meshEndIndex < meshes.Count && (meshes[meshEndIndex].type & MeshType.BaseType) == tp) meshEndIndex++;
+					var planes = frustrumPlanes;
+					GeometryUtility.CalculateFrustumPlanes(cam, planes);
 
-					Material mat;
-					customMaterialProperties.Clear();
-					switch (tp) {
-					case MeshType.Solid:
-						mat = surfaceMaterial;
-						customMaterialProperties.SetColor(colorID, solidBaseColor);
-						customMaterialProperties.SetColor(colorFadeID, solidFadeColor);
-						break;
-					case MeshType.Lines:
-						mat = lineMaterial;
-						customMaterialProperties.SetColor(colorID, lineBaseColor);
-						customMaterialProperties.SetColor(colorFadeID, lineFadeColor);
-						break;
-					case MeshType.Text:
-						mat = fontData.material;
-						customMaterialProperties.SetColor(colorID, textBaseColor);
-						customMaterialProperties.SetColor(colorFadeID, textFadeColor);
-						break;
-					default:
-						throw new System.InvalidOperationException("Invalid mesh type");
-					}
+					int colorID = Shader.PropertyToID("_Color");
+					int colorFadeID = Shader.PropertyToID("_FadeColor");
+					var solidBaseColor = new Color(1, 1, 1, settings.solidOpacity);
+					var solidFadeColor = new Color(1, 1, 1, settings.solidOpacityBehindObjects);
+					var lineBaseColor = new Color(1, 1, 1, settings.lineOpacity);
+					var lineFadeColor = new Color(1, 1, 1, settings.lineOpacityBehindObjects);
+					var textBaseColor = new Color(1, 1, 1, settings.textOpacity);
+					var textFadeColor = new Color(1, 1, 1, settings.textOpacityBehindObjects);
 
-					for (int pass = 0; pass < mat.passCount; pass++) {
-						for (int j = i; j < meshEndIndex; j++) {
-							var mesh = meshes[j];
-							if ((mesh.type & MeshType.Custom) != 0) {
-								// This mesh type may have a matrix set. So we need to handle that
-								if (GeometryUtility.TestPlanesAABB(planes, TransformBoundingBox(mesh.matrix, mesh.mesh.bounds))) {
-									// Custom meshes may have different colors
-									customMaterialProperties.SetColor(colorID, solidBaseColor * mesh.color);
-									commandBuffer.DrawMesh(mesh.mesh, mesh.matrix, mat, 0, pass, customMaterialProperties);
-									customMaterialProperties.SetColor(colorID, solidBaseColor);
+					// The meshes list is already sorted as first surfaces, then lines, then text
+					for (int i = 0; i < meshes.Count;) {
+						int meshEndIndex = i+1;
+						var tp = meshes[i].type & MeshType.BaseType;
+						while (meshEndIndex < meshes.Count && (meshes[meshEndIndex].type & MeshType.BaseType) == tp) meshEndIndex++;
+
+						Material mat;
+						customMaterialProperties.Clear();
+						switch (tp) {
+						case MeshType.Solid:
+							mat = surfaceMaterial;
+							customMaterialProperties.SetColor(colorID, solidBaseColor);
+							customMaterialProperties.SetColor(colorFadeID, solidFadeColor);
+							break;
+						case MeshType.Lines:
+							mat = lineMaterial;
+							customMaterialProperties.SetColor(colorID, lineBaseColor);
+							customMaterialProperties.SetColor(colorFadeID, lineFadeColor);
+							break;
+						case MeshType.Text:
+							mat = fontData.material;
+							customMaterialProperties.SetColor(colorID, textBaseColor);
+							customMaterialProperties.SetColor(colorFadeID, textFadeColor);
+							break;
+						default:
+							throw new System.InvalidOperationException("Invalid mesh type");
+						}
+
+						for (int pass = 0; pass < mat.passCount; pass++) {
+							for (int j = i; j < meshEndIndex; j++) {
+								var mesh = meshes[j];
+								if ((mesh.type & MeshType.Custom) != 0) {
+									// This mesh type may have a matrix set. So we need to handle that
+									if (GeometryUtility.TestPlanesAABB(planes, TransformBoundingBox(mesh.matrix, mesh.mesh.bounds))) {
+										// Custom meshes may have different colors
+										customMaterialProperties.SetColor(colorID, solidBaseColor * mesh.color);
+										commandBuffer.DrawMesh(mesh.mesh, mesh.matrix, mat, 0, pass, customMaterialProperties);
+										customMaterialProperties.SetColor(colorID, solidBaseColor);
+									}
+								} else if (GeometryUtility.TestPlanesAABB(planes, mesh.mesh.bounds)) {
+									// This mesh is drawn with an identity matrix
+									commandBuffer.DrawMesh(mesh.mesh, Matrix4x4.identity, mat, 0, pass, customMaterialProperties);
 								}
-							} else if (GeometryUtility.TestPlanesAABB(planes, mesh.mesh.bounds)) {
-								// This mesh is drawn with an identity matrix
-								commandBuffer.DrawMesh(mesh.mesh, Matrix4x4.identity, mat, 0, pass, customMaterialProperties);
 							}
 						}
+
+						i = meshEndIndex;
 					}
 
-					i = meshEndIndex;
+					meshes.Clear();
 				}
-
-				meshes.Clear();
 			}
 
 			cameraVersions[cam] = cameraRenderingRange;

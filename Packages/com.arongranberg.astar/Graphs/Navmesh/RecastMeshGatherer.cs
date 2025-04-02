@@ -628,7 +628,7 @@ namespace Pathfinding.Graphs.Navmesh {
 			}
 
 			// Figure out which samples we need from the terrain heightmap
-			var sampleRect = new IntRect(0, 0, chunks.x * chunkSizeAlongX - 1, chunks.y * chunkSizeAlongZ - 1).Offset(startSample);
+			var sampleRect = new IntRect(0, 0, chunks.x * chunkSizeAlongX, chunks.y * chunkSizeAlongZ).Offset(startSample);
 			var allSamples = new IntRect(0, 0, heightmapWidth - 1, heightmapDepth - 1);
 			// Clamp the samples to the heightmap bounds
 			sampleRect = IntRect.Intersection(sampleRect, allSamples);

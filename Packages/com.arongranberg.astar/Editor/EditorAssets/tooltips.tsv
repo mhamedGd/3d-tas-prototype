@@ -2128,6 +2128,7 @@ Pathfinding.Graphs.Navmesh.TileHandler.CutFunctionPtr	tilehandler.html#CutFuncti
 Pathfinding.Graphs.Navmesh.TileHandler.DelegateGCRoot	tilehandler.html#DelegateGCRoot	
 Pathfinding.Graphs.Navmesh.TileHandler.EdgeSnappingMaxDistance	tilehandler.html#EdgeSnappingMaxDistance	See SnapEdges.
 Pathfinding.Graphs.Navmesh.TileHandler.MarkerAllocate	tilehandler.html#MarkerAllocate	
+Pathfinding.Graphs.Navmesh.TileHandler.MarkerClipHorizontal	tilehandler.html#MarkerClipHorizontal	
 Pathfinding.Graphs.Navmesh.TileHandler.MarkerClipping	tilehandler.html#MarkerClipping	
 Pathfinding.Graphs.Navmesh.TileHandler.MarkerCompress	tilehandler.html#MarkerCompress	
 Pathfinding.Graphs.Navmesh.TileHandler.MarkerCopyClippingResult	tilehandler.html#MarkerCopyClippingResult	
@@ -2135,9 +2136,12 @@ Pathfinding.Graphs.Navmesh.TileHandler.MarkerCore	tilehandler.html#MarkerCore
 Pathfinding.Graphs.Navmesh.TileHandler.MarkerEdgeSnapping	tilehandler.html#MarkerEdgeSnapping	
 Pathfinding.Graphs.Navmesh.TileHandler.MarkerPrepare	tilehandler.html#MarkerPrepare	
 Pathfinding.Graphs.Navmesh.TileHandler.MarkerRefine	tilehandler.html#MarkerRefine	
+Pathfinding.Graphs.Navmesh.TileHandler.MarkerRemoveDegenerateLines	tilehandler.html#MarkerRemoveDegenerateLines	
+Pathfinding.Graphs.Navmesh.TileHandler.MarkerRemoveDegenerateTriangles	tilehandler.html#MarkerRemoveDegenerateTriangles	
 Pathfinding.Graphs.Navmesh.TileHandler.MarkerTriangulate	tilehandler.html#MarkerTriangulate	
 Pathfinding.Graphs.Navmesh.TileHandler.Point64Wrapper.x	point64wrapper.html#x	
 Pathfinding.Graphs.Navmesh.TileHandler.Point64Wrapper.y	point64wrapper.html#y	
+Pathfinding.Graphs.Navmesh.TileHandler.Scale	tilehandler.html#Scale	Scale all coordinates by this value to make intersection calculations more accurate, while clipping. \n\nWhen an intersection is calculated during clipping, it has to be rounded to the nearest integer coordinate. If this intersection is then used to calculate another intersection, the error will accumulate. By scaling up the coordinates, and dividing all coordinates after all clipping is finished, the error is reduced.\n\nThis should be a power of two, for best performance. It should not be too large, as then large coordinates can cause overflows in various calculations.\n\nTo disable, set to 1. But this is not recommended.
 Pathfinding.Graphs.Navmesh.TileHandler.TileCuts.contourEndIndex	tilecuts.html#contourEndIndex	
 Pathfinding.Graphs.Navmesh.TileHandler.TileCuts.contourStartIndex	tilecuts.html#contourStartIndex	
 Pathfinding.Graphs.Navmesh.TileHandler.TileSnappingMaxDistance	tilehandler.html#TileSnappingMaxDistance	See ConvertVerticesAndSnapToTileBoundaries. \n\nThe navmesh cut vertices are snapped to tile borders, if they are within this distance to the edge. This is used to avoid tiiiny slivers of triangles resulting from cuts that are just infringing on a tile. The normal snapping (using EdgeSnappingMaxDistance) cannot be used for tile borders, because that would make the tile borders not be straight anymore.\n\nI don't think there's any technical upper limit to this value. It's a tradeoff between the size of the slivers, and how accurately it matches the original geometry.
@@ -4041,9 +4045,14 @@ Pathfinding.Util.Guid.text	guid.html#text
 Pathfinding.Util.Guid.zero	guid.html#zero	
 Pathfinding.Util.Guid.zeroString	guid.html#zeroString	
 Pathfinding.Util.IEntityIndex.EntityIndex	ientityindex.html#EntityIndex	
-Pathfinding.Util.MeshUtility.JobRemoveDuplicateVertices.tags	jobremoveduplicatevertices.html#tags	
-Pathfinding.Util.MeshUtility.JobRemoveDuplicateVertices.triangles	jobremoveduplicatevertices.html#triangles	
-Pathfinding.Util.MeshUtility.JobRemoveDuplicateVertices.vertices	jobremoveduplicatevertices.html#vertices	
+Pathfinding.Util.MeshUtility.JobMergeNearbyVertices.CoordinateSorter.vertices	coordinatesorter.html#vertices	
+Pathfinding.Util.MeshUtility.JobMergeNearbyVertices.mergeRadiusSq	jobmergenearbyvertices.html#mergeRadiusSq	
+Pathfinding.Util.MeshUtility.JobMergeNearbyVertices.triangles	jobmergenearbyvertices.html#triangles	
+Pathfinding.Util.MeshUtility.JobMergeNearbyVertices.vertices	jobmergenearbyvertices.html#vertices	
+Pathfinding.Util.MeshUtility.JobRemoveDegenerateTriangles.tags	jobremovedegeneratetriangles.html#tags	
+Pathfinding.Util.MeshUtility.JobRemoveDegenerateTriangles.triangles	jobremovedegeneratetriangles.html#triangles	
+Pathfinding.Util.MeshUtility.JobRemoveDegenerateTriangles.verbose	jobremovedegeneratetriangles.html#verbose	
+Pathfinding.Util.MeshUtility.JobRemoveDegenerateTriangles.vertices	jobremovedegeneratetriangles.html#vertices	
 Pathfinding.Util.NativeMovementPlane.rotation	nativemovementplane.html#rotation	The rotation of the plane. \n\nThe plane is defined by the XZ-plane rotated by this quaternion.\n\nShould always be normalized.
 Pathfinding.Util.NativeMovementPlane.up	nativemovementplane.html#up	Normal of the plane.
 Pathfinding.Util.NodeHasher.debugData	nodehasher.html#debugData	

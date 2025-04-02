@@ -55,7 +55,7 @@ namespace Pathfinding {
 		/// </summary>
 		public static System.Type[] graphTypes { get; private set; }
 
-#if ASTAR_FAST_NO_EXCEPTIONS || UNITY_WINRT || UNITY_WEBGL
+#if ASTAR_FAST_NO_EXCEPTIONS || UNITY_WINRT
 		/// <summary>
 		/// Graph types to use when building with Fast But No Exceptions for iPhone.
 		/// If you add any custom graph types, you need to add them to this hard-coded list.
@@ -495,7 +495,7 @@ namespace Pathfinding {
 			if (graphTypes != null) return;
 
 			MarkerFindGraphTypes.Begin();
-#if !ASTAR_FAST_NO_EXCEPTIONS && !UNITY_WINRT && !UNITY_WEBGL
+#if !ASTAR_FAST_NO_EXCEPTIONS && !UNITY_WINRT
 			graphTypes = AssemblySearcher.FindTypesInheritingFrom<NavGraph>().ToArray();
 #else
 			graphTypes = DefaultGraphTypes;
@@ -587,8 +587,12 @@ namespace Pathfinding {
 				if (i != -1) graphs[i] = null;
 
 				UpdateShortcuts();
-				active.AddWorkItem(() => active.offMeshLinks.Refresh());
-				active.FlushWorkItems();
+
+				// If we are working on a prefab, this may not be true
+				if (AstarPath.active == active) {
+					active.AddWorkItem(() => active.offMeshLinks.Refresh());
+					active.FlushWorkItems();
+				}
 				return i != -1;
 			}
 		}

@@ -112,6 +112,7 @@ namespace AndoomiUtils{
         public float ReverseProgress => 1.0f - Progress;
         public Action OnTimerStart = delegate{};
         public Action OnTimerStop = delegate{};
+        public Action<float> OnTimerTick = delegate{};
 
         protected Timer(float _value) {
             initialTime = _value;
@@ -170,13 +171,20 @@ namespace AndoomiUtils{
         bool m_Loop = false;
         public override void Tick()
         {
-            if (IsRunning && CurrentTime > 0.0f) CurrentTime -= Time.deltaTime;
-
+            if (IsRunning && CurrentTime > 0.0f){
+                CurrentTime -= Time.deltaTime;
+                OnTimerTick.Invoke(Time.deltaTime);
+            }
             if (IsRunning && CurrentTime <= 0.0f)
             {
                 Stop();
                 if (m_Loop) Start();
             }
+        }
+
+        public void Break() {
+            Stop();
+            Reset();
         }
 
         public override bool IsFinished => CurrentTime <= 0.0f;
