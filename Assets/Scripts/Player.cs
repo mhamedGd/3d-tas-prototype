@@ -55,6 +55,8 @@ public class Player : MonoBehaviour
     public float Damage => damage;
     public void SetDamage(float newDamage) => damage = newDamage;
 
+    [SerializeField] GameObject bookObject;
+
     CountdownTimer _pathTimer;
     Vector3 _targetPosition;
     readonly Vector3 _forbiddenPosition = new Vector3{x=1000,y=1000,z=1000};
@@ -100,6 +102,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.B)) {
+            bookObject.SetActive(!bookObject.activeSelf);
+            Freeze(bookObject.activeSelf);
+        }
         if(_isFrozen) return;
         if(Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -113,6 +119,7 @@ public class Player : MonoBehaviour
             _currentStopInteractMethod = _currentInteractable.StopInteract;
             _isInteracting = true;
         }
+
 
         _attackTimer.Tick();
         _pathTimer.Tick();

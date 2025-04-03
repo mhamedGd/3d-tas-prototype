@@ -10,6 +10,7 @@ public class UpgradeCenter : Interactable
     public GameObject GameObject => gameObject;
 
     [SerializeField] GameObject upgradeCanvas;
+    [SerializeField] Canvas upgradeCanvasComp;
 
     [SerializeField] Player player;
     [SerializeField] UpgradeButton[] upgradeButtons;
@@ -31,7 +32,7 @@ public class UpgradeCenter : Interactable
 
     private void Update()
     {
-        descriptionRect.anchoredPosition = Input.mousePosition + Vector3.right * (descriptionRect.rect.xMax + descriptionLeftMargin);
+        descriptionRect.anchoredPosition = Input.mousePosition / upgradeCanvasComp.scaleFactor + Vector3.right * (descriptionRect.rect.xMax + descriptionLeftMargin);
     }
 
     public override void Interact(Player _player)
