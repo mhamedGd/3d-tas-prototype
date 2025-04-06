@@ -132,4 +132,8 @@ public class DaysManager : MonoBehaviour
         BREAKINGLOOP:
         return result;
     }
+
+    public void NewDay() {
+        nightTimer.Stop();
+    }
 }

@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeaconCard Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5907104941291496453, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -107,6 +111,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5907104941291496453, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1739188485763930165}
+    - targetCorrespondingSourceObject: {fileID: 3802921155025273920, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3533039565894800877}
+    - targetCorrespondingSourceObject: {fileID: 1237944911042107675, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2880783481003471450}
   m_SourcePrefab: {fileID: 100100000, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
 --- !u!1 &3427687277360818915 stripped
 GameObject:
@@ -126,3 +136,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardInfo: {fileID: 11400000, guid: 37905c2ad891307be8cb0715ce38ab78, type: 2}
+--- !u!1 &5381070838475541158 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3802921155025273920, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
+  m_PrefabInstance: {fileID: 9109611953543040742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &3533039565894800877
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5381070838475541158}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!1 &8018034171123275773 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1237944911042107675, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
+  m_PrefabInstance: {fileID: 9109611953543040742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &2880783481003471450
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8018034171123275773}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 4235237943488468632}
   - component: {fileID: 6764979011442371567}
   - component: {fileID: 542079019301833088}
+  - component: {fileID: 3816234553967233417}
   m_Layer: 2
   m_Name: Card
   m_TagString: Untagged
@@ -411,9 +412,42 @@ MonoBehaviour:
   label: {fileID: 5028597526535660383}
   stockText: {fileID: 2659722425940580378}
   stock: 0
-  onClick:
+  onLeftClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightClick:
     m_PersistentCalls:
       m_Calls: []
   onInit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3816234553967233417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907104941291496453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0081046f53ee4c80ab5f1b9b1ef62067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUi: 1
+  boardButtons:
+  - label: AD
+    buttonAction:
+      m_PersistentCalls:
+        m_Calls: []
+  - label: AD
+    buttonAction:
+      m_PersistentCalls:
+        m_Calls: []
+  - label: AD
+    buttonAction:
+      m_PersistentCalls:
+        m_Calls: []
+  - label: AD
+    buttonAction:
+      m_PersistentCalls:
+        m_Calls: []
