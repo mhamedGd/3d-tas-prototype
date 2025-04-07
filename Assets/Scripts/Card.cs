@@ -38,14 +38,16 @@ public class Card : MonoBehaviour, IPointerClickHandler
         
         label.text = _info.cardName;
 
-        onRightClick.AddListener(() => {
+    }
+
+    public void MoveCard() {
             if(_inBook) {
                 cardsDeck.MoveCardToHand(this);
             }else {
                 cardsDeck.MoveCardToBook(this);
             }
-        });
     }
+
     bool _inBook = true;
     public void OnPointerClick(PointerEventData eventData)
     {

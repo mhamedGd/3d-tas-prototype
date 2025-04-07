@@ -34,7 +34,9 @@ public class BoardAction : MonoBehaviour
         if(_isUsed){
             boardRect.anchoredPosition = Input.mousePosition/boardActionCanvas.scaleFactor + (boardRect.sizeDelta.Vec2ToVec3YInverted()/2.0f) * 1.1f;
             foreach(var rb in _boardButtons) {
-                Instantiate(prefabButton, Vector3.zero, prefabButton.transform.rotation, boardRect).gameObject.SetActive(true);
+                var b = Instantiate(prefabButton, Vector3.zero, prefabButton.transform.rotation, boardRect).gameObject;
+                b.SetActive(true);
+                b.GetComponent<BoardUIButton>().InitButton(rb, this);
             }
             StartCoroutine("CheckCloseBoard");
         }else {
@@ -42,7 +44,7 @@ public class BoardAction : MonoBehaviour
         }
     }
 
-    void DestroyChoices() {
+    public void DestroyChoices() {
             for(int i = boardRect.transform.childCount - 1; i >= 0; i--)
             {
                 Destroy(boardRect.transform.GetChild(i).gameObject);

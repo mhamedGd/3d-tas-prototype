@@ -12640,6 +12640,7 @@ GameObject:
   - component: {fileID: 1675572730}
   - component: {fileID: 1675572729}
   - component: {fileID: 1675572728}
+  - component: {fileID: 1675572731}
   m_Layer: 0
   m_Name: BoardActor
   m_TagString: Untagged
@@ -12749,6 +12750,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675572726}
   m_CullTransparentMesh: 1
+--- !u!114 &1675572731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675572726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 453a43fda39258366a146cef369e2cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: {fileID: 1033007423}
 --- !u!1001 &1711888059
 PrefabInstance:
   m_ObjectHideFlags: 0
