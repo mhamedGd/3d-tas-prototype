@@ -14,7 +14,7 @@ public class BoardUIButton : MonoBehaviour, IPointerClickHandler
         b=GetComponent<Button>();
         onClick = _info.buttonAction;
         onClick.AddListener(() => {
-            _action.DestroyChoices();
+            _action.TurnOffBoard();
         });
     }
 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14763c2f04cf5bb1784497c42ed21a69, type: 3}
   m_Name: GoodMorning
   m_EditorClassIdentifier: 
+  id: 10053
   cardName: Good Morning
   description: 
   cardSlot: 2

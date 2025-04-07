@@ -14,8 +14,9 @@ public class CardsDeck : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
     public void PickupCardInHand(Card _card) {
+        print(_card.cardInfo);
         foreach(var hc in hand) {
-            if(hc.cardInfo.cardName == _card.cardInfo.cardName) {
+            if(hc.cardInfo == _card.cardInfo) {
                 hc.stock += _card.stock;
                 return;
             }

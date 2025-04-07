@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 542079019301833088, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
       propertyPath: cardInfo
       value: 
-      objectReference: {fileID: 11400000, guid: 37905c2ad891307be8cb0715ce38ab78, type: 2}
+      objectReference: {fileID: 11400000, guid: cb2eaf2627de6d15ebc11f2bc30e96c4, type: 2}
     - target: {fileID: 889317639883225481, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -125,4 +125,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72a8e70e32e3ef1b82741da06166c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardInfo: {fileID: 11400000, guid: cb2eaf2627de6d15ebc11f2bc30e96c4, type: 2}

@@ -51,6 +51,11 @@ public class BoardAction : MonoBehaviour
             }
     }
 
+    public void TurnOffBoard() {
+        _isUsed=false;
+        DestroyChoices();
+    }
+
     int frame_f = 0;
     IEnumerator CheckCloseBoard() {
         

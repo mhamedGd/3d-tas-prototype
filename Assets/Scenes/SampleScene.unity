@@ -2238,7 +2238,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_TargetDisplay: 0
 --- !u!1 &567574867
 GameObject:
@@ -4938,10 +4938,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUi: 0
   boardButtons:
-  - label: 
+  - label: Upgrade
     buttonAction:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1016654361}
+          m_TargetAssemblyTypeName: UpgradeCenter, Assembly-CSharp
+          m_MethodName: Interact
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1562816898}
+            m_ObjectArgumentAssemblyTypeName: Player, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1020942592
 PrefabInstance:
   m_ObjectHideFlags: 0

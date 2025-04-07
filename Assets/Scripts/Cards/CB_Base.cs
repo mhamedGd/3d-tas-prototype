@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class CB_Base : MonoBehaviour
 {
-    [SerializeField] CardInfo cardInfo;
     Card card;
     
     
@@ -10,7 +9,7 @@ public class CB_Base : MonoBehaviour
     {
         card = GetComponent<Card>();
         // card.onInit.AddListener(Init);
-        card.Init(cardInfo);
+        card.Init();
         card.RegisterBehaviour(Act);
     }
     

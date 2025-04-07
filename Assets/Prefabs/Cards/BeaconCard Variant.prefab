@@ -135,7 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8c567ba15dee545a5b43a91e3eed78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardInfo: {fileID: 11400000, guid: 37905c2ad891307be8cb0715ce38ab78, type: 2}
 --- !u!1 &5381070838475541158 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3802921155025273920, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
