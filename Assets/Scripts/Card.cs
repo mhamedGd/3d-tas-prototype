@@ -40,20 +40,24 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
     public void MoveCard() {
             if(_inBook) {
-                cardsDeck.MoveCardToHand(this);
+                _inBook = !cardsDeck.MoveCardToHand(this);
             }else {
-                cardsDeck.MoveCardToBook(this);
+                _inBook = cardsDeck.MoveCardToBook(this);
             }
     }
 
-    bool _inBook = true;
+    public void InspectCard() {
+        cardsDeck.InspectCard(this);
+    }
+
+    bool _inBook = false;
     public void OnPointerClick(PointerEventData eventData)
     {
         if(eventData.button == PointerEventData.InputButton.Left) {
             onLeftClick.Invoke();
         }
         else if (eventData.button == PointerEventData.InputButton.Right) {
-            _inBook = !_inBook;
+            // _inBook = !_inBook;
             onRightClick.Invoke();
         }
     }

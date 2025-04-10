@@ -9,6 +9,7 @@ public class Town : Interactable
     Transform _owner;
     Transform _ownerDestTemp;
     bool _revealed;
+    public bool IsRevealed => _revealed;
 
     [SerializeField] Transform unlockTarget;
     bool _mustMove;
@@ -51,6 +52,8 @@ public class Town : Interactable
     }
 
     public void Unlock(Transform _owner) {
+        if(_revealed) return;
+
         var fogs = FindObjectsByType<csFogWar>(FindObjectsSortMode.None);
         var thisRevealer = new csFogWar.FogRevealer(
                 transform,
