@@ -18,6 +18,9 @@ public class CB_Base : MonoBehaviour
     public virtual void Act()
     {
         card.stock--;
-        if(card.stock <= 0) Destroy(gameObject);
+        if(card.stock <= 0){
+            card.RemoveCardFromDeck();
+            Destroy(gameObject);
+        }
     }
 }

@@ -4,6 +4,7 @@ using TMPro.EditorUtilities;
 using Unity.Entities.UniversalDelegates;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CardsDeck : MonoBehaviour
 {
@@ -22,7 +23,21 @@ public class CardsDeck : MonoBehaviour
     [SerializeField] TextMeshProUGUI inspectionStock;
     [SerializeField] TextMeshProUGUI inspectionDescription;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
+    public void RemoveCard(Card _card) {
+        foreach(var c in hand) {
+            if(c == _card){
+                hand.Remove(_card);
+                return;
+            }
+        }
+
+        foreach(var c in book) {
+            if(c == _card){
+                hand.Remove(_card);
+                return;
+            }
+        }
+    }
     public Card PickupCardInHand(Card _card) {
         Message.instance.Send($"Picked up {_card.cardInfo.cardName}");
         if(hand.Count == 2){

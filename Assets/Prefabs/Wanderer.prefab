@@ -5076,6 +5076,7 @@ GameObject:
   - component: {fileID: 8926271698393850939}
   - component: {fileID: 5227424941109186992}
   - component: {fileID: 5236135531854993940}
+  - component: {fileID: 3028245779333860043}
   m_Layer: 8
   m_Name: Wanderer
   m_TagString: Untagged
@@ -5209,3 +5210,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3028245779333860043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366181117420593295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4b3d7d09d37df0a4b9d6e93aad620cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 4

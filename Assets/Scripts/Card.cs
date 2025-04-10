@@ -50,6 +50,10 @@ public class Card : MonoBehaviour, IPointerClickHandler
         cardsDeck.InspectCard(this);
     }
 
+    public void RemoveCardFromDeck() {
+        cardsDeck.RemoveCard(this);
+    }
+
     bool _inBook = false;
     public void OnPointerClick(PointerEventData eventData)
     {

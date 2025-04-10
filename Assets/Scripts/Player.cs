@@ -31,6 +31,12 @@ public class Player : MonoBehaviour
     int coins;
     public int Coins => coins;
     public void IncreaseCoinCount(int _increment) => coins += _increment;
+    public void StopInPlace() {
+        _followerEntity.destination = transform.position;
+        _targetPosition = _forbiddenPosition;
+        _currentInteractable = null;
+        _currentInteractMethod = null;
+    }
 
     [Header("Settings")]
     [SerializeField] float speed;
