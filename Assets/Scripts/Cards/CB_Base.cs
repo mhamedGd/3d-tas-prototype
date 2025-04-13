@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class CB_Base : MonoBehaviour
 {
-    [SerializeField] CardInfo cardInfo;
     Card card;
     
     
@@ -10,7 +9,7 @@ public class CB_Base : MonoBehaviour
     {
         card = GetComponent<Card>();
         // card.onInit.AddListener(Init);
-        card.Init(cardInfo);
+        card.Init();
         card.RegisterBehaviour(Act);
     }
     
@@ -19,6 +18,9 @@ public class CB_Base : MonoBehaviour
     public virtual void Act()
     {
         card.stock--;
-        if(card.stock <= 0) Destroy(gameObject);
+        if(card.stock <= 0){
+            card.RemoveCardFromDeck();
+            Destroy(gameObject);
+        }
     }
 }

@@ -5,8 +5,7 @@ public class CardPickable : Interactable
     public override void Interact(Player p)
     {
         base.Interact(p);
-        cardsDeck.PickupCardInHand(correspondingCard);
-        Destroy(gameObject);
+        if(cardsDeck.PickupCardInHand(correspondingCard) != null) Destroy(gameObject);
     }
     CardsDeck cardsDeck;
     [SerializeField] Card correspondingCard;

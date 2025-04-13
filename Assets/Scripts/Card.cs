@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour, IPointerClickHandler
 {
-    [HideInInspector] public CardInfo cardInfo;
+    public CardInfo cardInfo;
     CardsDeck cardsDeck;
     
     Button button;
@@ -29,31 +29,39 @@ public class Card : MonoBehaviour, IPointerClickHandler
         stockText.text = stock.ToString();
     }
 
-    public void Init(CardInfo _info)
+    public void Init()
     {
         button = GetComponent<Button>();
         cardsDeck = FindAnyObjectByType<CardsDeck>();
 
-        cardInfo = _info;
-        
-        label.text = _info.cardName;
+        label.text = cardInfo.cardName;
 
-        onRightClick.AddListener(() => {
-            if(_inBook) {
-                cardsDeck.MoveCardToHand(this);
-            }else {
-                cardsDeck.MoveCardToBook(this);
-            }
-        });
     }
-    bool _inBook = true;
+
+    public void MoveCard() {
+            if(_inBook) {
+                _inBook = !cardsDeck.MoveCardToHand(this);
+            }else {
+                _inBook = cardsDeck.MoveCardToBook(this);
+            }
+    }
+
+    public void InspectCard() {
+        cardsDeck.InspectCard(this);
+    }
+
+    public void RemoveCardFromDeck() {
+        cardsDeck.RemoveCard(this);
+    }
+
+    bool _inBook = false;
     public void OnPointerClick(PointerEventData eventData)
     {
         if(eventData.button == PointerEventData.InputButton.Left) {
             onLeftClick.Invoke();
         }
         else if (eventData.button == PointerEventData.InputButton.Right) {
-            _inBook = !_inBook;
+            // _inBook = !_inBook;
             onRightClick.Invoke();
         }
     }

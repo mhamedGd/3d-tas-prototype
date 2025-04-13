@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using FSM;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,6 +12,9 @@ namespace AndoomiUtils{
         public static Vector3 Vec2ToVec3(this Vector2 _value)
         {
             return new Vector3(_value.x, _value.y, 0.0f);
+        }
+        public static Vector3 Vec2ToVec3YInverted(this Vector2 _value) {
+            return new Vector3(_value.x, -_value.y, 0);
         }
         public static Vector3 Vec2ToVec3Z(this Vector2 _value)
         {
