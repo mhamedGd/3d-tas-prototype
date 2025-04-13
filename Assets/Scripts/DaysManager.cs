@@ -1,8 +1,7 @@
+using System;
 using System.Collections.Generic;
 using AndoomiUtils;
 using FischlWorks_FogWar;
-using NUnit.Framework;
-using Pathfinding;
 using UnityEngine;
 
 public class DaysManager : MonoBehaviour
@@ -15,12 +14,15 @@ public class DaysManager : MonoBehaviour
     [SerializeField] float dayAlpha;
     [SerializeField] float nightAlpha;
 
+    DaysCounter daysCounter = new();
     CountdownTimer dayTimer;
     CountdownTimer nightTimer;
 
     [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject enemyPrefabFirstDay;
     [SerializeField] int enemySpawns;
     [SerializeField] Transform[] spawnPoints;
+    [SerializeField] Transform startDaySpawnPoint;
     [SerializeField] Queue<GameObject> spawnedEnemies = new();
 
     [SerializeField] Transform mapCenter;
@@ -37,6 +39,11 @@ public class DaysManager : MonoBehaviour
 
         dayTimer.OnTimerStart += () =>
         {
+            daysCounter.PassDay();
+            void SpawnEnemy(GameObject prefab, Transform spawnPoint)
+            {
+                spawnedEnemies.Enqueue(Instantiate(prefab, spawnPoint.position + UnityEngine.Random.insideUnitCircle.Vec2ToVec3Z() * 3, spawnPoint.rotation));
+            }
             var allFogs = FindObjectsByType<csFogWar>(FindObjectsSortMode.None);
 
             foreach (var f in allFogs)
@@ -47,8 +54,13 @@ public class DaysManager : MonoBehaviour
             }
             for(int i = 0; i < enemySpawns; i++)
             {
-                var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-                spawnedEnemies.Enqueue(Instantiate(enemyPrefab, spawnPoint.position+Random.insideUnitCircle.Vec2ToVec3Z()* 3, spawnPoint.rotation));
+                var spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+                SpawnEnemy(enemyPrefab, spawnPoint);
+            }
+            if (daysCounter.IsFirstDay())
+            {
+                SpawnEnemy(enemyPrefabFirstDay, startDaySpawnPoint);
+                print(daysCounter.number);
             }
         };
         nightTimer.OnTimerStart += () =>
@@ -103,6 +115,8 @@ public class DaysManager : MonoBehaviour
         originalPlayerSight = playerRevealer[0]._SightRange;
 
         dayTimer.Start();
+
+
     }
 
     float oneSecond = 2;
@@ -136,4 +150,17 @@ public class DaysManager : MonoBehaviour
     public void NewDay() {
         nightTimer.Stop();
     }
+}
+
+[Serializable]
+class DaysCounter {
+    public int number;
+
+    public int PassDay()
+    {
+        number += 1;
+        return number;
+    }
+
+    public bool IsFirstDay() => number == 1;
 }

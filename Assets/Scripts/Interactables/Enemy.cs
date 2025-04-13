@@ -28,6 +28,8 @@ public class Enemy : Interactable
     DG.Tweening.Core.TweenerCore<float, float, DG.Tweening.Plugins.Options.FloatOptions> curveTween;
 
     Vector3 _originalScale;
+
+    [SerializeField] bool headToCenter;
     public bool TakeDamage(float damageAmount)
     {
         _currentHealth -= damageAmount;
@@ -62,15 +64,13 @@ public class Enemy : Interactable
         _currentHealth = maxHealth;
         _originalScale = transform.localScale;
         
-        try
+        Vector3 newTarget = transform.position + UnityEngine.Random.insideUnitCircle.Vec2ToVec3Z();
+        if(headToCenter)
         {
             var upgradesCenter = FindFirstObjectByType<UpgradeCenter>();
-            Vector3 newTarget = upgradesCenter.transform.position + (transform.position - upgradesCenter.transform.position).normalized * distanceFromCenter;
-            SetTargetPosition(newTarget);
-        }catch (NullReferenceException)
-        {
-            Debug.LogWarning("There is no Upgrades Center in this Scene");
+            newTarget = upgradesCenter.transform.position + (transform.position - upgradesCenter.transform.position).normalized * distanceFromCenter;
         }
+        SetTargetPosition(newTarget);
     }
 
     private void Update()

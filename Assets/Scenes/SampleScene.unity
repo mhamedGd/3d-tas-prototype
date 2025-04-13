@@ -5221,6 +5221,37 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   correspondingCard: {fileID: 8785975524200040294, guid: 599dba4d9b8d842d59e7698d7c693bbd, type: 3}
+--- !u!1 &975872002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 975872003}
+  m_Layer: 0
+  m_Name: DayOneSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &975872003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975872002}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.25, y: 0, z: 13.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1008549810
 GameObject:
   m_ObjectHideFlags: 0
@@ -6498,12 +6529,14 @@ MonoBehaviour:
   dayAlpha: 0.75
   nightAlpha: 1
   enemyPrefab: {fileID: 6878671777715590591, guid: 8ddb83247b43b184db988315ef930792, type: 3}
+  enemyPrefabFirstDay: {fileID: 6878671777715590591, guid: 5e4e8c473d3e3244c803c3342aa3a862, type: 3}
   enemySpawns: 3
   spawnPoints:
   - {fileID: 490324579}
   - {fileID: 564255939}
   - {fileID: 437120324}
   - {fileID: 1640281088}
+  startDaySpawnPoint: {fileID: 975872003}
   mapCenter: {fileID: 1016654360}
   player: {fileID: 1562816896}
 --- !u!1 &1248236185
@@ -15262,6 +15295,7 @@ SceneRoots:
   - {fileID: 1274542198}
   - {fileID: 503701920}
   - {fileID: 1562816896}
+  - {fileID: 975872003}
   - {fileID: 1246493479}
   - {fileID: 1016654360}
   - {fileID: 1607159802}
