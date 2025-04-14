@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 542079019301833088, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
       propertyPath: stock
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 542079019301833088, guid: d7a948bcea18a1ef7bc9b0054e8f38da, type: 3}
       propertyPath: cardInfo

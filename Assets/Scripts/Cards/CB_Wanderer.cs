@@ -24,7 +24,7 @@ public class CB_Wanderer : CB_Base
         float nearestDis = Vector3.Distance(player.transform.position, nearestTown.transform.position);
         for(int i = 1; i < towns.Length; i++) {
             float dis = Vector3.Distance(player.transform.position, towns[i].transform.position);
-            if(dis < nearestDis && !towns[i].IsRevealed) {
+            if((dis < nearestDis || nearestTown.IsRevealed) && !towns[i].IsRevealed) {
                 nearestTown = towns[i];
                 nearestDis = dis;
             }

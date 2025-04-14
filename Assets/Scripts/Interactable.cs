@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
+    public string label;
     [SerializeField] float stopDistance;
     public float StopDistance => stopDistance;
 

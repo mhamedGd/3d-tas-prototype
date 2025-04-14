@@ -99,6 +99,11 @@ namespace AndoomiUtils{
             UnityEngine.Cursor.visible = true;
         }
 
+        public static void HideCursor() {
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.visible = false;
+        }
+
         public static Vector2 ClampVector2(Vector2 _vector, float _xMin, float _xMax, float _yMin, float _yMax) {
             _vector.x = Mathf.Clamp(_vector.x, _xMin, _xMax);
             _vector.y = Mathf.Clamp(_vector.y, _yMin, _yMax);

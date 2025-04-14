@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using AndoomiUtils;
 using Pathfinding;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -25,7 +26,10 @@ public class Player : MonoBehaviour
 
     #region Hud
     [Header("Hud")]
+    [SerializeField] Canvas hud;
     [SerializeField] Image healthBar;
+    [SerializeField] RectTransform crosshair;
+    [SerializeField] TextMeshProUGUI crosshairInfo;
     #endregion
 
     int coins;
@@ -91,6 +95,10 @@ public class Player : MonoBehaviour
             healthBar.fillAmount = p.HealthPercentage;
         });
         healthBar.fillAmount = HealthPercentage;
+
+
+
+        Helpful.HideCursor();
     }
 
     void UpdatePath()
@@ -113,9 +121,21 @@ public class Player : MonoBehaviour
             Freeze(bookObject.activeSelf);
         }
         if(_isFrozen) return;
-        if(Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            MoveToMouse(speed);
+        if(!EventSystem.current.IsPointerOverGameObject()) {
+            if(Input.GetMouseButton(0))
+            {
+                MoveToMouse(speed);
+            }
+            crosshair.anchoredPosition = Input.mousePosition/hud.scaleFactor;
+            if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, interactionMask))
+            {
+                var inter = hit.collider.GetComponent<Interactable>();
+                if(inter != null) {
+                    crosshairInfo.text = inter.label;
+                }else {
+                    crosshairInfo.text = "";
+                }
+            }else crosshairInfo.text = "";
         }
         UpdatePath();
 
