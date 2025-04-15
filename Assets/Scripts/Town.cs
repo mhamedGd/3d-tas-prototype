@@ -18,6 +18,8 @@ public class Town : Interactable
     [SerializeField] float beaconDestructionDelay;
 
     CameraHandler cameraHandler;
+
+    [SerializeField] GameObject reward;
     
     void Start()
     {
@@ -46,6 +48,7 @@ public class Town : Interactable
             if(Vector3.Distance(transform.position, unlockTarget.position) > 0.05f) {
                 transform.position = Vector3.MoveTowards(transform.position, unlockTarget.position, Time.deltaTime * 2);
             }else {
+                if(reward != null) Instantiate(reward, transform.position + Random.insideUnitCircle.Vec2ToVec3Z()*3, reward.transform.rotation);
                 _mustMove = false;
             }
         }

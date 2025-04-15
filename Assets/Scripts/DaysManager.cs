@@ -40,9 +40,9 @@ public class DaysManager : MonoBehaviour
         dayTimer.OnTimerStart += () =>
         {
             daysCounter.PassDay();
-            void SpawnEnemy(GameObject prefab, Transform spawnPoint)
+            void SpawnEnemy(GameObject prefab, Transform spawnPoint, float randomDistance)
             {
-                spawnedEnemies.Enqueue(Instantiate(prefab, spawnPoint.position + UnityEngine.Random.insideUnitCircle.Vec2ToVec3Z() * 3, spawnPoint.rotation));
+                spawnedEnemies.Enqueue(Instantiate(prefab, spawnPoint.position + UnityEngine.Random.insideUnitCircle.Vec2ToVec3Z() * randomDistance, spawnPoint.rotation));
             }
             var allFogs = FindObjectsByType<csFogWar>(FindObjectsSortMode.None);
 
@@ -55,11 +55,11 @@ public class DaysManager : MonoBehaviour
             for(int i = 0; i < enemySpawns; i++)
             {
                 var spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-                SpawnEnemy(enemyPrefab, spawnPoint);
+                SpawnEnemy(enemyPrefab, spawnPoint, 16);
             }
             if (daysCounter.IsFirstDay())
             {
-                SpawnEnemy(enemyPrefabFirstDay, startDaySpawnPoint);
+                SpawnEnemy(enemyPrefabFirstDay, startDaySpawnPoint, 2);
                 print(daysCounter.number);
             }
         };
