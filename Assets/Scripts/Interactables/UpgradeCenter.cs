@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using FischlWorks_FogWar;
 using TMPro;
 using UnityEngine;
@@ -99,9 +98,14 @@ public class UpgradeCenter : Interactable
     {
         //UpdateCoinCount(_bt);
 
-        player.SetSpeed(player.Speed + 2);
+        player.SetSpeed(player.Speed + player.Speed * 0.25f);
         UpdateCoins(_bt);
         //UpdateButtonsEnabled();
+    }
+    
+    public void IncreaseSpeedAndAttack(Button _bt) {
+        player.SetSpeed(player.Speed + player.Speed * 0.2f);
+        player.SetDamage(player.Damage + player.Damage*0.5f);
     }
 
     void UpdateCoins(Button _bt)

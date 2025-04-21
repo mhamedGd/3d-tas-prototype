@@ -192,7 +192,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &3938717474067326079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a20fb3cd447e32ceda8877f530817a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  label: 
   stopDistance: 2
   onInteract:
     m_PersistentCalls:
@@ -215,3 +216,4 @@ MonoBehaviour:
   bodyCollider: {fileID: 7918337758782626873}
   unlockTarget: {fileID: 0}
   beaconDestructionDelay: 0.2
+  reward: {fileID: 0}

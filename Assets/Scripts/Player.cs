@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
 {
     bool _isFrozen;
     public void Freeze(bool value) => _isFrozen = value;
-
     float _currentHealth;
     [SerializeField] float maxHealth;
     public float HealthPercentage => _currentHealth / maxHealth;
@@ -120,13 +119,13 @@ public class Player : MonoBehaviour
             bookObject.SetActive(!bookObject.activeSelf);
             Freeze(bookObject.activeSelf);
         }
+        crosshair.anchoredPosition = Input.mousePosition/hud.scaleFactor;
         if(_isFrozen) return;
         if(!EventSystem.current.IsPointerOverGameObject()) {
             if(Input.GetMouseButton(0))
             {
                 MoveToMouse(speed);
             }
-            crosshair.anchoredPosition = Input.mousePosition/hud.scaleFactor;
             if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, interactionMask))
             {
                 var inter = hit.collider.GetComponent<Interactable>();

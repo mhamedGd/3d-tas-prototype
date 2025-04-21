@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edeb0036b07e0b7a90e3bcdf0aeb338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  label: Star Eye
   stopDistance: 0.5
   onInteract:
     m_PersistentCalls:
